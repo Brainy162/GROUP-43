@@ -1,0 +1,317 @@
+/* school.css - UNIBEN Teal & Coral Theme */
+
+/* 1. Variables & Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --uniben-teal:    #008080; /* Teal for primary */
+  --uniben-coral:   #FF6F61; /* Coral for highlights */
+  --uniben-white:   #ffffff;
+  --uniben-charcoal:#333333;
+  --bg-light:       #fafafa;
+  --border:         #ddd;
+  --radius:         8px;
+  --spacing:        1.2rem;
+  --transition:     0.3s ease;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg-light);
+  color: var(--uniben-charcoal);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* 2. Navbar & Hamburger */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing) 2rem;
+  background: var(--uniben-teal);
+  color: var(--uniben-white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  animation: slideBg 6s linear infinite;
+}
+
+/* Animate a subtle gradient sliding */
+@keyframes slideBg {
+  0%   { background: linear-gradient(90deg, var(--uniben-teal) 0%, #006666 100%); }
+  50%  { background: linear-gradient(90deg, #006666 0%, var(--uniben-teal) 100%); }
+  100% { background: linear-gradient(90deg, var(--uniben-teal) 0%, #006666 100%); }
+}
+
+.nav-toggle {
+  display: none;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+.hamburger span {
+  width: 28px;
+  height: 4px;
+  background: var(--uniben-white);
+  border-radius: 2px;
+  transition: transform var(--transition);
+}
+.nav-toggle:checked + .hamburger span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.nav-toggle:checked + .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle:checked + .hamburger span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+nav .brand {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+}
+nav ul li a {
+  color: var(--uniben-white);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  transition: background var(--transition), transform var(--transition);
+}
+nav ul li a:hover,
+nav ul li a[aria-current="page"] {
+  background: var(--uniben-coral);
+  color: var(--uniben-charcoal);
+  transform: scale(1.05);
+}
+
+/* 2.1 Mobile Menu */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  nav ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--uniben-teal);
+    flex-direction: column;
+    align-items: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition);
+  }
+  .nav-toggle:checked + .hamburger + .brand + ul {
+    max-height: 400px;
+  }
+  nav ul li a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+  }
+}
+
+/* 3. Main Layout */
+main {
+  padding: 6rem 2rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeInContent 1s var(--transition);
+}
+@keyframes fadeInContent {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 4. Buttons */
+.btn {
+  position: relative;
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  background: var(--uniben-teal);
+  color: var(--uniben-white);
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius);
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s, background var(--transition);
+}
+.btn--alt {
+  background: var(--uniben-white);
+  color: var(--uniben-teal);
+  border: 2px solid var(--uniben-teal);
+}
+.btn:hover {
+  transform: scale(1.08);
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 0; height: 0;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+  pointer-events: none;
+}
+.btn:hover::before {
+  width: 200%; height: 200%; opacity: 0;
+}
+
+/* 5. Forms */
+.form {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: var(--uniben-white);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: fadeInContent 0.8s var(--transition);
+  text-align: left;
+}
+.form-group {
+  margin-bottom: var(--spacing);
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--uniben-teal);
+  box-shadow: 0 0 0 3px rgba(0,128,128,0.2);
+}
+
+/* 6. Tables and Search */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  animation: fadeInContent 0.8s var(--transition);
+}
+.search-bar label {
+  align-self: center;
+  font-weight: 500;
+}
+.search-bar input {
+  flex: 1 1 180px;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.search-bar button {
+  padding: 0.6rem 1rem;
+  background: var(--uniben-teal);
+  color: var(--uniben-white);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+.search-bar button:hover {
+  background: var(--uniben-coral);
+  transform: translateY(-2px);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  animation: fadeInContent 1s var(--transition);
+}
+thead {
+  background: var(--uniben-teal);
+  color: var(--uniben-white);
+}
+th, td {
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+tr:nth-child(even) {
+  background: #f3f3f3;
+}
+.no-data {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+}
+
+/* 7. Responsive Tweaks */
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9rem;
+  }
+  main {
+    padding-top: 5rem;
+  }
+  .button-group {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .form {
+    padding: 1rem;
+  }
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  thead tr {
+    position: absolute; top: -9999px; left: -9999px;
+  }
+  tr {
+    margin-bottom: 1rem; border: 1px solid var(--border);
+  }
+  td {
+    position: relative; padding-left: 50%; border: none; border-bottom: 1px solid var(--border);
+  }
+  td:before {
+    position: absolute; top: 0; left: 0; width: 45%; padding-left: 0.8rem;
+    font-weight: bold; white-space: nowrap;
+  }
+  td:nth-of-type(1):before { content: "S/N"; }
+  td:nth-of-type(2):before { content: "Name"; }
+  td:nth-of-type(3):before { content: "Mat No."; }
+  td:nth-of-type(4):before { content: "Faculty"; }
+  td:nth-of-type(5):before { content: "Department"; }
+  td:nth-of-type(6):before { content: "Email"; }
+  td:nth-of-type(7):before { content: "Level"; }
+  td:nth-of-type(8):before { content: "Gender"; }
+  td:nth-of-type(9):before { content: "DOB"; }
+}
